@@ -1,6 +1,8 @@
 # White Space Analysis Agent Accelerator
 
-A specialized AI assistant — deployable as a **Gemini Enterprise Agent** or a standard **Custom Gem** — that performs rigorous capability gap analysis for New Relic customers. It investigates a customer's business footprint, cross-references it against their current New Relic adoption, and recommends new capabilities to drive expansion.
+## Overview
+
+The White Space Analysis Agent is a specialized AI assistant (available as a **Gemini Enterprise Agent** or a standard **Custom Gem**) designed to perform rigorous capability gap analysis for New Relic customers. It investigates a customer's business footprint, cross-references it with their current New Relic adoption, and recommends new capabilities to drive expansion.
 
 > 📄 **Confluence page:** [White Space Analysis Agent Accelerator](https://newrelic.atlassian.net/wiki/spaces/REPLACE_ME) _(replace with the live link)_
 
@@ -17,9 +19,9 @@ whitespace-analysis-agent/
 
 ---
 
-## Overview
+## What the agent produces
 
-The agent produces a three-part **White Space Analysis**:
+Every run returns a three-part **White Space Analysis**:
 
 1. **Business Context** — a short summary of the customer's products, services, and vertical, derived from a web search of their site.
 2. **Evidence-Based Gap Analysis** — every capability scored `0` in the adoption CSV is investigated against the customer's public footprint. Any evidence of a related technology means the capability is recommended.
@@ -29,48 +31,58 @@ The agent produces a three-part **White Space Analysis**:
 
 ## Prerequisites & knowledge files
 
-You will need two files to attach to the agent:
-
-| File | Where it comes from |
-| --- | --- |
-| **Adopted Capabilities CSV** | Tableau Scorecard Dashboards → **"Adopted Capabilities"** table → download |
-| **New Capabilities Knowledge Base (PDF)** | A PDF outlining the newest New Relic capabilities |
+| File | Where it comes from | Scope |
+| --- | --- | --- |
+| **New Capabilities Knowledge Base (PDF)** | A PDF outlining the newest New Relic capabilities | Attach **once** at setup — the same file serves every analysis |
+| **Adopted Capabilities CSV** | Tableau Scorecard Dashboards → **"Adopted Capabilities"** table → download | Upload **per customer** — each customer has their own adoption data |
 
 ---
 
-## Step-by-step instructions
+## Setup (one-time)
 
-### 1. Prepare the data
+### 1. Create the agent
 
-Download `Adopted Capabilities.csv` from the Tableau Scorecard Dashboard.
+Create a new **Gemini Enterprise Agent** or **Custom Gem**.
 
-### 2. Fix the CSV encoding (if necessary)
+### 2. Configure the instructions
 
-Tableau often exports as UTF‑16, which the agent cannot read. If upload or parsing fails, convert it:
+Copy the contents of [`prompts/system_prompt.md`](prompts/system_prompt.md) into the agent's instructions field.
+
+### 3. Attach the capabilities knowledge base
+
+Upload the **New Capabilities PDF** to the agent's knowledge. This is reference material that does not change between customers.
+
+---
+
+## Agent Usage Instructions
+
+Once you have created the agent, you must provide it with the **customer's public website URL** so it can analyze their industry and primary product offerings.
+
+To enable the agent to cross-reference and deliver highly accurate feature recommendations, you must also upload their current New Relic adoption data by following these steps:
+
+### 1. Download the Scorecard
+
+Navigate to the Tableau Scorecard Dashboards and download the `Adopted Capabilities.csv` table.
+
+### 2. Re-encode if Needed (Format Fix)
+
+If the agent encounters a reading error or fails to parse the CSV due to file encoding mismatches, execute the following command in your terminal to convert it to standard UTF-8:
 
 ```bash
 iconv -f UTF-16 -t UTF-8 "Capabilities adopted.csv" > "Capabilities_fixed.csv"
 ```
 
-### 3. Set up the agent
+> Replace `"Capabilities adopted.csv"` with the actual name of the file you downloaded, and upload the resulting `Capabilities_fixed.csv` to the agent instead of the original.
 
-Create a new **Gemini Enterprise Agent** or **Custom Gem**.
+### 3. Run the analysis
 
-### 4. Upload knowledge
-
-Attach the fixed CSV file and the New Capabilities PDF to the agent's knowledge.
-
-### 5. Configure instructions
-
-Copy the contents of [`prompts/system_prompt.md`](prompts/system_prompt.md) into the agent's instructions field.
-
-### 6. Run the analysis
-
-Prompt the agent with the customer's website URL, for example:
+Attach the CSV to the conversation and prompt the agent with the customer's URL, for example:
 
 ```text
 Run a White Space Analysis for https://www.example.com
 ```
+
+Repeat this section for each new customer — swap in that customer's CSV and URL.
 
 ---
 
