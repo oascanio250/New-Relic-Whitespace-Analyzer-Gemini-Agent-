@@ -4,7 +4,7 @@
 
 The White Space Analysis Agent is a specialized AI assistant (available as a **Gemini Enterprise Agent** or a standard **Custom Gem**) designed to perform rigorous capability gap analysis for New Relic customers. It investigates a customer's business footprint, cross-references it with their current New Relic adoption, and recommends new capabilities to drive expansion.
 
-> 📄 **Confluence page:** [White Space Analysis Agent Accelerator](https://newrelic.atlassian.net/wiki/spaces/REPLACE_ME) _(replace with the live link)_
+> **Confluence page:** [White Space Analysis Agent Accelerator](https://newrelic.atlassian.net/wiki/spaces/REPLACE_ME) _(replace with the live link)_
 
 ---
 
@@ -13,8 +13,8 @@ The White Space Analysis Agent is a specialized AI assistant (available as a **G
 ```text
 whitespace-analysis-agent/
 ├── README.md                  # Overview, setup instructions, and link to Confluence
-└── prompts/
-    └── system_prompt.md       # The core instructions/role for the Gemini agent
+└── instructions/
+    └── agent_instructions.md       # The core instructions/role for the Gemini agent
 ```
 
 ---
@@ -46,7 +46,7 @@ Create a new **Gemini Enterprise Agent** or **Custom Gem**.
 
 ### 2. Configure the instructions
 
-Copy the contents of [`prompts/system_prompt.md`](prompts/system_prompt.md) into the agent's instructions field.
+Copy the contents of [`instructions/agent_instructions.md`](instructions/agent_instructions.md) into the agent's instructions field.
 
 ### 3. Attach the capabilities knowledge base
 
@@ -94,4 +94,4 @@ Repeat this section for each new customer — swap in that customer's CSV and UR
 - The following capabilities are always ignored, even at `0`: `CODESTREAM`, `ERROR_INBOX`, `MAPS`, `REPO`.
 - The agent does not ask follow-up questions at the end of its output.
 
-See [`prompts/system_prompt.md`](prompts/system_prompt.md) for the authoritative rules.
+See [`instructions/agent_instructions.md`](instructions/agent_instructions.md) for the authoritative rules.
