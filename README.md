@@ -4,7 +4,7 @@
 
 The White Space Analysis Agent is a specialized AI assistant (available as a **Gemini Enterprise Agent** or a standard **Custom Gem**) designed to perform rigorous capability gap analysis for New Relic customers. It investigates a customer's business footprint, cross-references it with their current New Relic adoption, and recommends new capabilities to drive expansion.
 
-> **Confluence page:** [White Space Analysis Agent Accelerator](https://newrelic.atlassian.net/wiki/spaces/REPLACE_ME) _(replace with the live link)_
+> **Confluence page:** [White Space Analysis Agent Accelerator](https://newrelic.atlassian.net/wiki/spaces/TS/pages/6096912398/White+Space+Analysis+Agent+Accelerator) _(replace with the live link)_
 
 ---
 
